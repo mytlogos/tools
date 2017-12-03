@@ -28,6 +28,19 @@ public class Condition {
         return this;
     }
 
+    public Condition greaterEqualThan(long i, long... longs) {
+        if (Arrays.stream(longs).anyMatch(value -> value < i)) {
+            throw new IllegalArgumentException("a value is smallern than " + i);
+        }
+        return this;
+    }
+    public Condition greaterEqualThan(double i, double... doubles) {
+        if (Arrays.stream(doubles).anyMatch(value -> value < i)) {
+            throw new IllegalArgumentException("a value is smallern than " + i);
+        }
+        return this;
+    }
+
     public Condition nonNull(Object... objects) {
         Object[] array = Arrays.stream(objects).filter(Objects::isNull).toArray();
 
@@ -84,6 +97,16 @@ public class Condition {
 
     public Condition positive(int... ints) {
         greaterEqualThan(0, ints);
+        return this;
+    }
+
+    public Condition positive(long... longs) {
+        greaterEqualThan(0, longs);
+        return this;
+    }
+
+    public Condition positive(double... doubles) {
+        greaterEqualThan(0, doubles);
         return this;
     }
 }
